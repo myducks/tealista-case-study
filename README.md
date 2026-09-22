@@ -1,133 +1,61 @@
 # Tealista — Technical Case Study
 
-Tealista is a private, production-oriented multilingual tea discovery and marketplace platform.
+Tealista is a production-oriented multilingual tea platform combining a canonical catalog, seller marketplace, commerce workflows, analytics and connected clients.
 
-The platform helps users discover teas, explore tea by type, origin and flavor profile, compare vendor offers and navigate to trusted tea shops.
+**Live:** https://tealista.com
 
-Live website: https://tealista.com
+> The application source is private. This repository documents the system without exposing production code, secrets or internal configuration.
 
-> Source code is private. This repository presents the project scope, architecture and production engineering areas without exposing implementation details.
+## Platform
 
-## Project Overview
+- Canonical tea and product catalog
+- Seller offers and price comparison
+- Native seller storefront and inventory workflows
+- Cart, checkout and order domain
+- Multilingual Web/PWA and technical SEO
+- Browser extension, Telegram bot and Zepp OS client
+- Editorial/admin workflows with role boundaries
+- Market and price-history observation pipeline
 
-Tealista combines a tea catalog, discovery experience, multilingual content structure, vendor offer flows and SEO-focused landing pages.
+## Engineering Highlights
 
-The product is designed as a marketplace foundation where tea shops can publish offers and users can compare available options before visiting a vendor website.
-
-## Core Product Areas
-
-- Multilingual tea catalog
-- Tea detail pages
-- Tea type, origin and flavor pages
-- Vendor offers and external shop redirects
-- Tea discovery and filtering experience
-- Admin-oriented content management foundation
-- Vendor/shop profile foundation
-- Click tracking foundation for offer analytics
-- SEO-oriented public pages
-- Responsive desktop and mobile interface
-- Light and dark theme support
-
-## Technology Stack
-
-### Frontend
-
-- React
-- Vite
-- JavaScript / JSX
-- Responsive UI
-- Multilingual routing
-- Custom styling system
-
-### Backend
-
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- REST API
-- Authentication and role-based logic
-- Vendor and offer handling
-
-### SEO
-
-- Custom SEO rendering layer
-- Canonical URLs
-- hreflang structure
-- Sitemap structure
-- JSON-LD structured data
-- Search-engine-friendly public pages
-
-### Infrastructure
-
-- Render deployment
-- Cloudflare DNS, CDN and security layer
-- MongoDB database
-- Sentry monitoring
-- Resend transactional emails
-- Environment-based configuration
-
-## Architecture Overview
+**Catalog integrity**  
+Tealista separates reusable tea identity from concrete products and seller offers:
 
 ```text
-User / Search Engine Bot
-        |
-        v
-Frontend / SEO Layer
-React + Vite + custom SEO rendering
-        |
-        v
-Backend API
-Node.js + Express
-        |
-        v
-Database and Services
-MongoDB, Sentry, Resend
-        |
-        v
-Infrastructure
-Render + Cloudflare
+Tea -> TeaBatch / product -> Offer
+                      ^
+                VendorProduct
 ```
 
-## Engineering Focus
+This allows offers to be compared only when product identity is sufficiently matched.
 
-### Multilingual Platform Structure
+**Commerce**  
+Seller products, variants, stock, delivery settings, orders, status history, returns/disputes and transactional stock reservation are implemented. Public payment surfaces remain feature-gated until payment/compliance rollout is approved.
 
-The platform supports multiple languages and language-specific public routes. The content architecture is designed to support localized tea pages, marketplace pages and SEO landing pages.
+**Multi-client platform**  
+The same Core API supports Web/PWA, a browser extension, Telegram integration and a Zepp OS application with client-specific authentication boundaries.
 
-### SEO and Indexing
+**Analytics and market history**  
+Offer price, availability and visibility changes can be recorded with provenance. Reconciliation/backfill tools are dry-run-first and designed to avoid inventing historical facts.
 
-The project includes technical SEO work beyond standard meta tags, including canonical URLs, hreflang, sitemaps, structured data and bot-oriented rendering for public pages.
+**Production engineering**  
+PR validation runs on a self-hosted GitHub Actions runner with backend/frontend checks, database integration tests, client/device builds, Semgrep and secret scanning. Production releases use reviewed merges, Render deployment and live verification.
 
-### Marketplace Logic
+## Stack
 
-Tealista includes vendor offers, shop profiles, offer visibility rules and external redirect flows. The foundation supports future vendor analytics and monetization workflows.
+| Area | Technology |
+| --- | --- |
+| Frontend | React, Vite, PWA |
+| Backend | Node.js, Express |
+| Data | MongoDB, Mongoose, Redis |
+| Infrastructure | Render, Cloudflare |
+| Quality | GitHub Actions, Playwright, Node tests, Semgrep |
+| Integrations | Google Merchant, Telegram, browser extension, Zepp OS |
 
-### Production Deployment
+## More
 
-The platform is deployed as a live production project with environment-based configuration, monitoring, logging and infrastructure-level routing.
-
-### UX and Mobile Quality
-
-The interface is developed with attention to responsive behavior, mobile usability, visual consistency and dark/light theme compatibility.
-
-### Security and Hardening
-
-The project includes practical hardening work around headers, redirects, rate limiting, environment separation, CDN configuration and production error monitoring.
-
-## What This Project Demonstrates
-
-- Building and maintaining a real production web platform
-- Connecting frontend, backend, database and external services
-- Designing multilingual content and routing structures
-- Implementing technical SEO for public marketplace pages
-- Handling production deployment and debugging
-- Working with vendor and offer data flows
-- Improving performance, mobile UX and reliability
-- Applying infrastructure and security awareness in a real project
-
-## Repository Scope
-
-This repository does not contain source code, secrets, environment files or internal implementation details.
-
-It is a public technical case study for a private commercial project.
+- [Architecture](docs/architecture.md)
+- [Project scope](docs/project-scope.md)
+- [Security](docs/security-and-hardening.md)
+- [SEO & production](docs/seo-and-production.md)
