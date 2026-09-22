@@ -1,59 +1,29 @@
-# SEO and Production Engineering
+# SEO and Production
 
-Tealista is built with a strong focus on public discoverability, multilingual indexing and production reliability.
+## SEO
 
-## SEO Areas
+Tealista serves multilingual public pages through a dedicated SEO layer with:
 
-The project includes work on:
+- Canonical URLs and hreflang
+- Sitemaps
+- Localized metadata
+- JSON-LD for catalog, product and offer pages
+- Searchable concrete-product pages
+- Google Merchant XML feed support
 
-- Canonical URL structure
-- hreflang configuration
-- Sitemap structure
-- JSON-LD structured data
-- Search-engine-friendly public pages
-- Indexable tea, type, origin and flavor pages
-- Metadata for localized routes
+## Performance
 
-## Multilingual Indexing
+Catalog work includes reduced database payloads, completed-page caching, cache prewarming and stale-content strategies to keep public browsing responsive during refreshes.
 
-The platform supports multiple languages and localized public routes. This requires careful handling of language-specific URLs, metadata, canonical relationships and alternate-language references.
+## Release process
 
-## Structured Data
+```text
+short-lived branch
+      -> pull request
+      -> tests + security checks
+      -> reviewed merge to main
+      -> Render deployment
+      -> live production verification
+```
 
-Structured data is used to help search engines understand public marketplace and catalog pages more accurately.
-
-Focus areas include:
-
-- Tea detail page metadata
-- Marketplace-style content structure
-- Item and page-level schema separation
-- Avoiding misleading structured data
-
-## Production Monitoring
-
-The project uses monitoring and error tracking to identify frontend and backend production issues.
-
-Main areas:
-
-- Runtime error monitoring
-- Deployment debugging
-- Log analysis
-- Environment-specific behavior checks
-- Production regression detection
-
-## Deployment Focus
-
-The platform is deployed with environment-based configuration and production infrastructure services.
-
-Main areas:
-
-- Build and deployment pipeline
-- Environment variables
-- CDN and DNS behavior
-- Backend availability
-- Frontend/SEO service behavior
-- Error tracking after release
-
-## Goal
-
-The goal is to keep public pages discoverable, stable, fast and consistent for both users and search engines.
+CI includes backend/frontend tests, database integration checks, browser-extension and device builds, Semgrep and secret scanning on a self-hosted runner.
