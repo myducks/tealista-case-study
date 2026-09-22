@@ -1,46 +1,20 @@
 # Security and Hardening
 
-Tealista includes practical production hardening work across the application and infrastructure layers.
+Tealista uses explicit security boundaries across public, user, seller, editorial and admin flows.
 
-## Application-Level Areas
+## Controls
 
-- Safer redirect handling
-- Input validation
-- Authentication and role-based access foundations
-- Rate limiting
-- Separation of public and admin-oriented flows
-- Protection against accidental exposure of environment data
+- Authentication and role/ownership checks in backend controllers
+- Trusted-origin checks for state-changing web requests
+- Explicit response allowlists instead of raw database objects
+- Separate authentication flows for browser extension and device clients
+- Rate limiting with Redis support
+- Input validation and redirect restrictions
+- Environment and secret separation
+- Security headers and Cloudflare edge protection
+- Audit-oriented handling of elevated operations
+- Semgrep and secret scanning in PR validation
 
-## Infrastructure-Level Areas
+## Operating principle
 
-- Cloudflare DNS and CDN configuration
-- SSL/TLS configuration
-- Security headers
-- Environment-based deployment configuration
-- Production log review
-- Monitoring and alerting foundations
-
-## Operational Focus
-
-The project is maintained with attention to production behavior, regression prevention and safe deployment practices.
-
-Main areas:
-
-- Avoiding secret exposure
-- Keeping source code private
-- Reviewing public output before publishing
-- Monitoring production errors
-- Hardening public routes and redirects
-- Separating planned commercial features from active production flows
-
-## Repository Safety
-
-This public repository intentionally excludes:
-
-- Source code
-- API keys
-- Environment files
-- Internal deployment secrets
-- Private implementation details
-- Internal instructions
-- Non-public business logic
+Frontend visibility is never treated as authorization. Access control is enforced at API/controller boundaries, and production changes are reviewed and verified after deployment.
